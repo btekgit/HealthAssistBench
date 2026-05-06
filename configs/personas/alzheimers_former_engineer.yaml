@@ -1,0 +1,46 @@
+persona_id: ad_former_engineer_01
+diagnosis: Alzheimer's disease, mild stage with short-term memory lapses
+age: 74
+clinical_profile:
+  source_note: Starter persona grounded in public Alzheimer's summaries and intended for benchmark prototyping.
+memory_model:
+  working_memory_turns: 2
+  repetition_rate: 0.45
+  confabulation_rate: 0.1
+language_model:
+  style: simple and repetitive
+  word_finding_pause_prob: 0.2
+  telegraphic_style: false
+motor_model:
+  tremor_typing_prob: 0.0
+  missing_space_prob: 0.0
+  random_caps_prob: 0.0
+emotional_profile:
+  baseline_mood: anxious
+  mood_volatility: 0.35
+  rejection_sensitivity: true
+health_state:
+  medications:
+    - donepezil
+  allergies:
+    - sulfa drugs
+  chronic_conditions:
+    - hypertension
+  physiological_state:
+    sleep_hours: 6
+    orientation_state: mildly_confused
+tool_preferences:
+  calendar: true
+  reminders: simple_audio
+  wearable_data:
+    - sleep_hours
+caregiver:
+  name: Aylin
+  relationship: daughter
+  phone: null
+biography:
+  summary: Former electrical engineer who values routines, keeps family birthdays on paper, and becomes uneasy when plans shift.
+  facts:
+    - My daughter's birthday is on Tuesday.
+    - I used to fix radios on the weekends.
+    - I prefer one instruction at a time.

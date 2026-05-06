@@ -55,6 +55,7 @@ class DialogueEngine:
                         user_tags=step.user_tags,
                         assistant_tags_expected=step.assistant_tags_expected,
                         sentence_spans=step.sentence_tags,
+                        gold_action=step.gold_action,
                     ),
                 )
             )

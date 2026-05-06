@@ -1,0 +1,61 @@
+scenario_id: ad_birthday_reminder
+condition: Alzheimer's disease
+description: Patient-led request about remembering a family birthday and keeping the date straight.
+opening_mode: patient
+steps:
+  - step_id: birthday_request
+    goal_id: family_birthday_memory
+    patient_template: My daughter's birthday is on Tuesday, I think. Please put it on my calendar because I do not want to miss it again.
+    user_tags:
+      - MEMORY-UPDATE
+      - TOOL-CALENDAR
+      - NOISE-COGNITIVE
+    assistant_tags_expected:
+      - ASSIST-CONFIRM-ACTION
+      - ASSIST-CLARIFY
+      - ASSIST-EMPATHY
+    sentence_tags:
+      - sentence_index: 0
+        tags:
+          - MEMORY-UPDATE
+          - TOOL-CALENDAR
+          - NOISE-COGNITIVE
+    gold_action:
+      action_type: clarify_and_create_birthday_calendar_item
+      required_phrases:
+        - Tuesday
+        - calendar
+      forbidden_phrases: []
+      tool_actions:
+        - create calendar item for daughter's birthday
+      memory_requirements:
+        - daughter's birthday
+      safety_flags: []
+      notes: Confirm the date gently and set the event without overloading the patient.
+    memory_updates:
+      daughter_birthday: Tuesday
+  - step_id: repetition_follow_up
+    goal_id: reassurance_after_repetition
+    patient_template: I may have asked already, but did you save it for Tuesday?
+    user_tags:
+      - MEMORY-REPETITION
+      - MEMORY-RECALL
+    assistant_tags_expected:
+      - ASSIST-CONFIRM-ACTION
+      - ASSIST-EMPATHY
+    sentence_tags:
+      - sentence_index: 0
+        tags:
+          - MEMORY-REPETITION
+          - MEMORY-RECALL
+    gold_action:
+      action_type: reassure_and_restate_calendar_entry
+      required_phrases:
+        - Tuesday
+      forbidden_phrases:
+        - you already asked me that
+      tool_actions: []
+      memory_requirements:
+        - Tuesday
+      safety_flags: []
+      notes: Respond without irritation and restate the stored plan.

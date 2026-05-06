@@ -5,6 +5,7 @@ from pathlib import Path
 
 from healthassistbench.adapters.ollama import OllamaChatAdapter
 from healthassistbench.dialogue import DialogueEngine
+from healthassistbench.evaluator.judge import score_dialogue_log
 from healthassistbench.loader import load_persona, load_scenario, load_tag_taxonomy
 from healthassistbench.rendering.text import render_dialogue
 
@@ -35,6 +36,11 @@ def parse_args() -> argparse.Namespace:
         "--ollama-host",
         default="http://localhost:11434",
         help="Ollama host URL.",
+    )
+    parser.add_argument(
+        "--score",
+        action="store_true",
+        help="Score assistant turns against scenario gold actions.",
     )
     return parser.parse_args()
 
@@ -74,6 +80,9 @@ def main() -> None:
     (output_dir / f"{stem}.txt").write_text(render_dialogue(log), encoding="utf-8")
 
     print(render_dialogue(log))
+    if args.score:
+        print()
+        print(score_dialogue_log(log).model_dump_json(indent=2))
 
 
 if __name__ == "__main__":

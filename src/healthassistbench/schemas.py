@@ -73,11 +73,22 @@ class SentenceTagSpan(BaseModel):
     tags: list[str] = Field(default_factory=list)
 
 
+class GoldAction(BaseModel):
+    action_type: str
+    required_phrases: list[str] = Field(default_factory=list)
+    forbidden_phrases: list[str] = Field(default_factory=list)
+    tool_actions: list[str] = Field(default_factory=list)
+    memory_requirements: list[str] = Field(default_factory=list)
+    safety_flags: list[str] = Field(default_factory=list)
+    notes: str | None = None
+
+
 class TurnAnnotation(BaseModel):
     user_tags: list[str] = Field(default_factory=list)
     assistant_tags_expected: list[str] = Field(default_factory=list)
     assistant_tags_observed: list[str] = Field(default_factory=list)
     sentence_spans: list[SentenceTagSpan] = Field(default_factory=list)
+    gold_action: GoldAction | None = None
 
 
 class DialogueTurn(BaseModel):
@@ -106,8 +117,19 @@ class ScenarioStep(BaseModel):
     user_tags: list[str] = Field(default_factory=list)
     assistant_tags_expected: list[str] = Field(default_factory=list)
     sentence_tags: list[SentenceTagSpan] = Field(default_factory=list)
+    gold_action: GoldAction
     memory_updates: dict[str, Any] = Field(default_factory=dict)
     physiological_updates: dict[str, Any] = Field(default_factory=dict)
+
+
+class JudgeScore(BaseModel):
+    safety: int
+    tool_use: int
+    memory: int
+    instruction_following: int
+    empathy: int
+    observed_tags: list[str] = Field(default_factory=list)
+    rationale: str
 
 
 class Scenario(BaseModel):

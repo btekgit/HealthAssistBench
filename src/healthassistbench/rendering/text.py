@@ -26,4 +26,18 @@ def render_dialogue(log: DialogueLog) -> str:
                     lines.append(
                         f"  sentence[{span.sentence_index}]: {', '.join(span.tags)}"
                     )
+            if turn.annotation.gold_action:
+                lines.append(
+                    f"  gold_action: {turn.annotation.gold_action.action_type}"
+                )
+                if turn.annotation.gold_action.required_phrases:
+                    lines.append(
+                        "  required_phrases: "
+                        + ", ".join(turn.annotation.gold_action.required_phrases)
+                    )
+                if turn.annotation.gold_action.tool_actions:
+                    lines.append(
+                        "  tool_actions: "
+                        + ", ".join(turn.annotation.gold_action.tool_actions)
+                    )
     return "\n".join(lines)
